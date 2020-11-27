@@ -8,11 +8,17 @@ def getSmallestDivisorOfArrayDimensions(arr):
 		width = len(arr[0])
 		DivisorRange = range(2, width + 1)
 		list_width = [i for i in DivisorRange if width % i == 0]
-		smallest_divisors.append(list_width[0])
+		if len(list_width)>1:
+			smallest_divisors.append(list_width[1])
+		else:
+			smallest_divisors.append(list_width[0])
 		height = len(arr)
 		DivisorRange = range(2, height + 1)
 		list_height = [i for i in DivisorRange if height % i == 0]
-		smallest_divisors.append(list_height[0])
+		if len(list_width)>1:
+			smallest_divisors.append(list_height[1])
+		else:
+			smallest_divisors.append(list_height[0])
 		return smallest_divisors
 
 
@@ -112,9 +118,9 @@ def transformBlockArrayCBC(key, block_array, block_width, block_height):
 
 def encrypt(key,type):
 		###ECB
-		photo = Image.open("plain24bit.bmp")
+		photo = Image.open("plain.bmp")
 		arr = np.asarray(photo)
-		block_width, block_height = 4, 3	# getSmallestDivisorOfArrayDimensions(arr)
+		block_width, block_height = getSmallestDivisorOfArrayDimensions(arr)
 		arr_bw = turnArrayIntoBWArray(arr)
 		block_array = turnBWArrayIntoBlockArray(arr, block_width, block_height,
 																						arr_bw)
